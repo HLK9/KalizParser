@@ -14,11 +14,19 @@ namespace ConAntle
     {
         static void Main(string[] args)
         {
-            string asd = Console.ReadLine();
-            if (File.Exists(asd)&&Path.GetExtension(asd)==".pas")
+            
+            string path_File = Console.ReadLine();
+            string data = "";
+            using (var fs = new FileStream(path_File, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (var sr = new StreamReader(fs, Encoding.Default))
             {
-                string pascal = File.ReadAllText(asd);
-                ICharStream target = new AntlrInputStream(pascal);
+                data = sr.ReadToEnd();
+            }
+
+            if (File.Exists(path_File)&&Path.GetExtension(path_File)==".pas")
+            {
+                
+                ICharStream target = new AntlrInputStream(data);
                 ITokenSource lexer = new pascalLexer(target);
                 ITokenStream tokens = new CommonTokenStream(lexer);
                 pascalParser parser = new pascalParser(tokens);
@@ -28,10 +36,10 @@ namespace ConAntle
                 Console.WriteLine(sd.ToString());
 
             }
-            else if (File.Exists(asd) && Path.GetExtension(asd) == ".cpp")
+            else if (File.Exists(path_File) && Path.GetExtension(path_File) == ".cpp")
             {
-                string cplus = File.ReadAllText(asd);
-                ICharStream target = new AntlrInputStream(cplus);
+               
+                ICharStream target = new AntlrInputStream(data);
                 ITokenSource lexer = new CPP14Lexer(target);
                 ITokenStream tokens = new CommonTokenStream(lexer);
                 CPP14Parser parser = new CPP14Parser(tokens);
@@ -40,18 +48,31 @@ namespace ConAntle
                 var sd = parser.translationUnit();
                 Console.WriteLine(sd.ToString());
             }
-            else if (File.Exists(asd) && Path.GetExtension(asd) == ".c")
+            else if (File.Exists(path_File) && Path.GetExtension(path_File) == ".c")
             {
-                string C = File.ReadAllText(asd);
-                ICharStream target = new AntlrInputStream(C);
+                
+                ICharStream target = new AntlrInputStream(data);
                 ITokenSource lexer = new CLexer(target);
                 ITokenStream tokens = new CommonTokenStream(lexer);
                 CParser parser = new CParser(tokens);
                 parser.BuildParseTree = true;
                 // IParseTree re = parser.forStatement();
-                var sd = parser.translationUnit();
+                var sd = parser.compilationUnit();
                 Console.WriteLine(sd.ToString());
                // Console.WriteLine(parser.argumentExpressionList());
+            }
+            else// if (File.Exists(asd) && Path.GetExtension(asd) == ".java")
+            {
+               
+                ICharStream target = new AntlrInputStream(data);
+                ITokenSource lexer = new JavaLexer(target);
+                ITokenStream tokens = new CommonTokenStream(lexer);
+                JavaParser parser = new JavaParser(tokens);
+                parser.BuildParseTree = true;
+                // IParseTree re = parser.forStatement();
+                var sd = parser.compilationUnit();
+                Console.WriteLine(sd.ToString());              
+
             }
 
 

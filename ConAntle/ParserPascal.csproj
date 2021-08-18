@@ -67,6 +67,14 @@
       <Generator>MSBuild:Compile</Generator>
       <CustomToolNamespace>ConAntle</CustomToolNamespace>
     </Antlr4>
+    <Antlr4 Include="JavaLexer.g4">
+      <Generator>MSBuild:Compile</Generator>
+      <CustomToolNamespace>ConAntle</CustomToolNamespace>
+    </Antlr4>
+    <Antlr4 Include="JavaParser.g4">
+      <Generator>MSBuild:Compile</Generator>
+      <CustomToolNamespace>ConAntle</CustomToolNamespace>
+    </Antlr4>
     <None Include="packages.config" />
     <Antlr4 Include="pascal.g4">
       <Generator>MSBuild:Compile</Generator>
