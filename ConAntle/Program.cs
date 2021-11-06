@@ -63,15 +63,16 @@ namespace ConAntle
             }
             else// if (File.Exists(asd) && Path.GetExtension(asd) == ".java")
             {
-               
-                ICharStream target = new AntlrInputStream(data);
-                ITokenSource lexer = new JavaLexer(target);
-                ITokenStream tokens = new CommonTokenStream(lexer);
-                JavaParser parser = new JavaParser(tokens);
-                parser.BuildParseTree = true;
-                // IParseTree re = parser.forStatement();
-                var sd = parser.compilationUnit();
-                Console.WriteLine(sd.ToString());              
+
+                return;
+                //ICharStream target = new AntlrInputStream(data);
+                //ITokenSource lexer = new JavaLexer(target);
+                //ITokenStream tokens = new CommonTokenStream(lexer);
+                //JavaParser parser = new JavaParser(tokens);
+                //parser.BuildParseTree = true;
+                //// IParseTree re = parser.forStatement();
+                //var sd = parser.compilationUnit();
+                //Console.WriteLine(sd.ToString());              
 
             }
 
